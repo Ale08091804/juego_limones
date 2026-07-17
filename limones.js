@@ -13,10 +13,12 @@ let limonX=canvas.width/2;
 let limonY=0;
 let puntaje=0;
 let vidas=3;
-let velocidadCaida=100;
+let velocidadCaida=200;
+let intervalo;
+
 
 function iniciar(){
-    setInterval(bajarLimon,velocidadCaida);
+    intervalo = setInterval(bajarLimon,velocidadCaida)
     dibujarSuelo();
     dibujarPersonaje();
     aparecerLimon();
@@ -77,6 +79,20 @@ function detectarAtrapado(){
         aparecerLimon();
         puntaje=puntaje+1;
         mostrarEnSpan("txtPuntaje",puntaje);
+
+        if (puntaje == 3) {
+            velocidadCaida = 150;
+        }
+
+        if (puntaje == 6) {
+            velocidadCaida = 100;
+        }
+
+        if (puntaje == 10) {
+            clearInterval(intervalo);
+            alert("TIENES LOS LIMONES Ahora solo te falta sal y tequila. GANASTE");
+            
+        }
     }
 }
 
@@ -87,7 +103,9 @@ function detectarPiso() {
         mostrarEnSpan("txtVidas", vidas);
 
         if (vidas == 0) {
+            clearInterval(intervalo);
             alert("GAME OVER");
+            
         }
     }
 }
